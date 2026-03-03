@@ -246,7 +246,7 @@ Perfect for learning API automation testing without needing internet access, API
 - ✅ Beautiful web dashboard for interactive testing
 - ✅ Perfect for workshops, interviews, and learning
 
-Learn more: [PlayPI GitHub Repository](https://github.com/abhivaikar/PlayPI)
+Learn more: [PlayPI - Local API Testing Playground](https://taqelah.sg/blog/playpi-local-api-testing-playground.html)
 
 ---
 
