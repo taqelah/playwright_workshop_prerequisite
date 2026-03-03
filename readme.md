@@ -9,11 +9,15 @@ A comprehensive tutorial covering all the fundamentals of TypeScript with practi
    - [Installing Node.js](#installing-nodejs)
    - [Installing Visual Studio Code](#installing-visual-studio-code)
    - [Project Setup](#project-setup)
-3. [Project Structure](#project-structure)
-4. [Running the Examples](#running-the-examples)
-5. [Topics Covered](#topics-covered)
-6. [Learning Path](#learning-path)
-7. [Additional Resources](#additional-resources)
+3. [PlayPI - Local API Testing Playground](#playpi---local-api-testing-playground)
+   - [What is PlayPI?](#what-is-playpi)
+   - [Installing Docker](#installing-docker)
+   - [Getting Started with PlayPI](#getting-started-with-playpi)
+4. [Project Structure](#project-structure)
+5. [Running the Examples](#running-the-examples)
+6. [Topics Covered](#topics-covered)
+7. [Learning Path](#learning-path)
+8. [Additional Resources](#additional-resources)
 
 ---
 
@@ -219,6 +223,259 @@ Now that you have Node.js and VS Code installed, let's set up this project:
    ```
 
    You should see the welcome message and tutorial overview.
+
+---
+
+## PlayPI - Local API Testing Playground
+
+### What is PlayPI?
+
+**PlayPI** is a free, open-source Docker-based tool that provides a complete API testing environment running on your local machine. It gives you instant access to 6 different API services covering the most popular protocols:
+
+- **RESTful APIs** (2 services) - HTTP-based APIs for inventory and task management
+- **GraphQL API** - Query-based API for flexible data fetching
+- **gRPC APIs** (2 services) - High-performance RPC framework
+- **WebSocket API** - Real-time bidirectional communication
+
+Perfect for learning API automation testing without needing internet access, API keys, or dealing with rate limits!
+
+**Why use PlayPI?**
+- ✅ No setup hassles - starts in seconds
+- ✅ No API keys needed
+- ✅ No rate limits
+- ✅ Beautiful web dashboard for interactive testing
+- ✅ Perfect for workshops, interviews, and learning
+
+Learn more: [PlayPI GitHub Repository](https://github.com/abhivaikar/PlayPI)
+
+---
+
+### Installing Docker
+
+PlayPI requires Docker to run. Follow the steps for your operating system:
+
+#### Windows
+
+1. **Download Docker Desktop:**
+   - Go to [Docker Desktop for Windows](https://docs.docker.com/desktop/install/windows-install/)
+   - Download Docker Desktop
+   - Run the installer
+
+2. **System Requirements:**
+   - Windows 10 64-bit: Pro, Enterprise, or Education
+   - OR Windows 11 64-bit: Home or Pro
+   - WSL 2 feature enabled (installer will help with this)
+
+3. **Installation Steps:**
+   - Follow the installation wizard
+   - Restart your computer when prompted
+   - Open Docker Desktop to complete setup
+
+#### macOS
+
+1. **Download Docker Desktop:**
+   - Go to [Docker Desktop for Mac](https://docs.docker.com/desktop/install/mac-install/)
+   - Download the version for your chip:
+     - **Apple Silicon (M1/M2/M3):** Download "Mac with Apple chip"
+     - **Intel Mac:** Download "Mac with Intel chip"
+
+2. **Installation Steps:**
+   - Open the downloaded `.dmg` file
+   - Drag Docker to Applications folder
+   - Open Docker from Applications
+   - Grant necessary permissions when prompted
+
+#### Linux (Ubuntu/Debian)
+
+1. **Update package index and install Docker:**
+   ```bash
+   # Update package index
+   sudo apt-get update
+
+   # Install Docker
+   sudo apt-get install docker.io
+
+   # Start Docker service
+   sudo systemctl start docker
+   sudo systemctl enable docker
+
+   # Add your user to docker group (so you don't need sudo)
+   sudo usermod -aG docker $USER
+
+   # Log out and log back in for changes to take effect
+   ```
+
+2. **For other Linux distributions**, check the [official Docker docs](https://docs.docker.com/engine/install/)
+
+#### Verify Docker Installation
+
+Open your terminal and run:
+```bash
+docker --version
+```
+
+You should see output like:
+```
+Docker version 24.0.7, build afdd53b
+```
+
+If you see this, congratulations! Docker is installed correctly.
+
+---
+
+### Getting Started with PlayPI
+
+#### Step 1: Pull the PlayPI Image
+
+Open your terminal and run:
+
+```bash
+docker pull taqelah/playpi:latest
+```
+
+This downloads the PlayPI dashboard from Docker Hub. It's about 50MB and includes everything you need.
+
+#### Step 2: Start the Dashboard
+
+Run this command to start PlayPI:
+
+```bash
+docker run -p 8000:8000 -p 8080:8080 -p 8081:8081 -p 8082:8082 -p 8084:8084 -p 8085:8085 -p 8086:8086 taqelah/playpi:latest
+```
+
+**What do these port numbers mean?**
+- `8000` - Dashboard UI
+- `8080` - RESTful Inventory API
+- `8081` - GraphQL API
+- `8082` - gRPC Inventory API
+- `8084` - gRPC User Registration API
+- `8085` - RESTful Task Management API
+- `8086` - WebSocket Chat API
+
+You'll see output like:
+```
+Starting PlayPI Dashboard...
+Preparing dashboard...
+Checking and freeing dashboard ports...
+✓ All dashboard ports are available
+
+✓ Dashboard running on http://localhost:8000
+Open your browser to manage all services
+```
+
+#### Step 3: Open the Dashboard
+
+Open your web browser and go to:
+
+```
+http://localhost:8000
+```
+
+You should see the PlayPI dashboard with three columns:
+- **Left Column:** Stopped Services
+- **Middle Column:** Running Services
+- **Right Column:** API Testing Panel
+
+#### Step 4: Start Testing APIs
+
+1. **Start a Service:**
+   - In the left column, find a service (e.g., "RESTful Inventory Manager")
+   - Click the green Start button
+   - Wait for the service to move to the middle "Running Services" column
+
+2. **Test the API:**
+   - Click on the running service in the middle column
+   - The right panel will show available API endpoints
+   - Find an example (e.g., "Get All Items")
+   - Click "Try It" to see the API response
+   - For POST requests, you can edit the JSON body before sending
+
+#### Running PlayPI in Background (Detached Mode)
+
+To run PlayPI in the background:
+
+```bash
+docker run -d \
+  --name playpi \
+  -p 8000:8000 -p 8080:8080 -p 8081:8081 -p 8082:8082 \
+  -p 8084:8084 -p 8085:8085 -p 8086:8086 \
+  taqelah/playpi:latest
+```
+
+**Useful Commands:**
+```bash
+# Check if it's running
+docker ps
+
+# View logs
+docker logs playpi
+
+# Stop it
+docker stop playpi
+
+# Start it again
+docker start playpi
+
+# Remove it completely
+docker rm playpi
+```
+
+#### Using PlayPI for Test Automation
+
+Once PlayPI is running, you can write automated tests using your favorite tools:
+
+**Python + Requests:**
+```python
+import requests
+
+# Test GET
+response = requests.get('http://localhost:8080/items')
+assert response.status_code == 200
+assert 'items' in response.json()
+
+# Test POST
+new_item = {
+    "name": "Laptop",
+    "description": "Dell XPS 15",
+    "price": 1299.99,
+    "quantity": 5
+}
+response = requests.post('http://localhost:8080/items', json=new_item)
+assert response.status_code == 201
+```
+
+**JavaScript + Axios:**
+```javascript
+const axios = require('axios');
+
+async function testAPI() {
+    // GET request
+    const response = await axios.get('http://localhost:8080/items');
+    console.log('Items:', response.data);
+
+    // POST request
+    const newItem = {
+        name: 'Keyboard',
+        description: 'Mechanical Keyboard',
+        price: 89.99,
+        quantity: 15
+    };
+    const created = await axios.post('http://localhost:8080/items', newItem);
+    console.log('Created:', created.data);
+}
+
+testAPI();
+```
+
+#### Troubleshooting PlayPI
+
+| Issue | Solution |
+|-------|----------|
+| "Cannot connect to Docker daemon" | Make sure Docker is running. On Windows/Mac, open Docker Desktop. On Linux, run `sudo systemctl start docker` |
+| "Port is already allocated" | PlayPI automatically cleans up ports on startup. If you still have issues, close other applications using those ports |
+| "docker: command not found" | Docker isn't installed or not in PATH. Reinstall Docker and ensure it's in your PATH |
+| Dashboard doesn't open | Check if container is running with `docker ps`. View logs with `docker logs <container-id>` |
+| "Try It" buttons show errors | Make sure the service is in the "Running Services" column. Wait a few seconds after starting |
 
 ---
 
