@@ -2,6 +2,8 @@
 
 A comprehensive tutorial covering all the fundamentals of TypeScript with practical, runnable examples.
 
+And PlayPI installation steps.
+
 ## 📚 Table of Contents
 
 1. [Prerequisites](#prerequisites)
