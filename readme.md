@@ -201,10 +201,10 @@ Now that you have Node.js and VS Code installed, let's set up this project:
    ```bash
    # If you have this as a git repository:
    git clone <repository-url>
-   cd module_1
+   cd playwright_workshop_prerequisite
 
    # Or if you downloaded as a ZIP, extract it and navigate to the folder
-   cd path/to/module_1
+   cd path/to/playwright_workshop_prerequisite
    ```
 
 2. **Install Dependencies:**
@@ -482,7 +482,7 @@ testAPI();
 ## Project Structure
 
 ```
-module_1/
+playwright_workshop_prerequisite/
 ├── src/                          # Source files
 │   ├── 01-variables-and-types.ts       # Variables, types, operators
 │   ├── 02-control-flow.ts              # If/else, loops, switch
